@@ -1,3 +1,10 @@
+#For CubeIDE
+*.ld
+*/Debug
+*/.settings/*
+!*/.settings/org.eclipse.core.resources.prefs
+
+
 # Prerequisites
 *.d
 
