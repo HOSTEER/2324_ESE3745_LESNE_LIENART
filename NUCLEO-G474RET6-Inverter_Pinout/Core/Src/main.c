@@ -26,6 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "mylibs/shell.h"
+#include "stdio.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -52,7 +53,14 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
+int _write(int file, char *ptr, int len) {
+	int DataIdx;
 
+	for (DataIdx = 0; DataIdx < len; DataIdx++) {
+		HAL_UART_Transmit(&huart2, (uint8_t *) ptr++, 1, HAL_MAX_DELAY);
+	}
+	return len;
+}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -103,6 +111,7 @@ int main(void)
 	while (1)
 	{
 		Shell_Loop();
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
