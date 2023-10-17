@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "tim.h"
+#include "mylibs/pwm.h"
 
 uint8_t prompt[]="user@Nucleo-STM32G474RET6>>";
 uint8_t started[]=
@@ -120,73 +120,4 @@ void Shell_Loop(void){
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef * huart){
 	uartRxReceived = 1;
 	HAL_UART_Receive_IT(&huart2, uartRxBuffer, UART_RX_BUFFER_SIZE);
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-uint8_t duty_cycle_interpretor(void){
-	uint8_t number_length = strlen(argv[2]);
-	if(number_length < 1 && number_length > 3){
-		return 255;
-	}else{
-		switch(number_length){
-		case 1 :
-			if(argv[2][0] >= '0' && argv[2][0] <= '9' ){
-
-
-			}
-			break;
-		case 2 :
-			break;
-		case 3 :
-			if(strcmp(argv[2],"100")==0){
-				return 100;
-			}else{
-				return 255;
-			}
-			break;
-		}
-	}
-}
-
-void pwm_function_handler(void){
-	if(strcmp(argv[1],"start")==0){
-		pwm_start();
-	}
-	else if(strcmp(argv[1],"stop")==0) {
-		pwm_stop();
-	}
-}
-
-void pwm_start(void){
-	if(HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1)==HAL_ERROR){
-		printf("pwm error\r\n");
-	}
-	if(HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1)==HAL_ERROR){
-		printf("pwm error\r\n");
-	}
-	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1, 638-1);
-	if(HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2)==HAL_ERROR){
-		printf("pwm error\r\n");
-	}
-	if(HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_2)==HAL_ERROR){
-		printf("pwm error\r\n");
-	}
-	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2, htim1.Instance->ARR - htim1.Instance->CCR1);
-}
-
-void pwm_stop(void){
-	if(HAL_TIM_PWM_Stop(&htim1, TIM_CHANNEL_1)==HAL_ERROR){
-		printf("pwm error\r\n");
-	}
-	if(HAL_TIMEx_PWMN_Stop(&htim1, TIM_CHANNEL_1)==HAL_ERROR){
-		printf("pwm error\r\n");
-	}
-
-	if(HAL_TIM_PWM_Stop(&htim1, TIM_CHANNEL_2)==HAL_ERROR){
-		printf("pwm error\r\n");
-	}
-	if(HAL_TIMEx_PWMN_Stop(&htim1, TIM_CHANNEL_2)==HAL_ERROR){
-		printf("pwm error");
-	}
 }

@@ -18,11 +18,8 @@
 
 void Shell_Init(void);
 void Shell_Loop(void);
-void pwm_function_handler(void);
-void pwm_start(void);
-void pwm_stop(void);
 
-uint8_t duty_cycle_interpretor(void);
+extern char* argv[MAX_ARGS];
 
 #endif /* INC_MYLIBS_SHELL_H_ */
 
