@@ -17,11 +17,11 @@ void pwm_function_handler(void){
 	else if(strcmp(argv[1],"duty")==0){
 		int dutyCycle = atoi(argv[2]);
 		if(dutyCycle > 99){
-			htim1.Instance->ARR = PWM_100;
+			htim1.Instance->CCR1 = PWM_100;
 		}else if(dutyCycle < 1){
-			htim1.Instance->ARR = 0;
+			htim1.Instance->CCR1 = 0;
 		}else{
-			htim1.Instance->ARR = (  (  (float)dutyCycle  )/100  )*PWM_100;
+			htim1.Instance->CCR1 = (  (  (float)dutyCycle  )/100  )*PWM_100;
 		}
 	}
 }
