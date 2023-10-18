@@ -14,14 +14,12 @@ void pwm_function_handler(void){
 	else if(strcmp(argv[1],"stop")==0){
 		pwm_stop();
 	}
-	else if(strcmp(argv[1],"duty")==0){
+	else if(strcmp(argv[1],"speed")==0){
 		int dutyCycle = atoi(argv[2]);
-		if(dutyCycle > 99){
-			__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1, PWM_100-1);
-			__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2, htim1.Instance->ARR - htim1.Instance->CCR1);
-		}else if(dutyCycle < 1){
-			__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1, 0);
-			__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2, htim1.Instance->ARR - htim1.Instance->CCR1);
+		if(dutyCycle > 100){
+			printf("valeur trop grande speed > 100\r\n");
+		}else if(dutyCycle < 0){
+			printf("valeur trop grande speed < 0\r\n");
 		}else{
 			__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1, (  (  (float)dutyCycle  )/100  )*PWM_100);
 			__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2, htim1.Instance->ARR - htim1.Instance->CCR1);

@@ -105,6 +105,12 @@ void Shell_Loop(void){
 		else if(strcmp(argv[0],"pwm")==0){
 			pwm_function_handler();
 		}
+		else if(strcmp(argv[0],"adc")==0){
+			printf("adc value = %04f A \r\n",adcValue);
+		}
+		else if(strcmp(argv[0],"enc")==0){
+			printf("encoder = %04d  \r\n",(int)count);
+		}
 		else if(strcmp(argv[0],"help")==0){
 			int uartTxStringLength = snprintf((char *)uartTxBuffer, UART_TX_BUFFER_SIZE, "Print all available functions here\r\n");
 			HAL_UART_Transmit(&huart2, uartTxBuffer, uartTxStringLength, HAL_MAX_DELAY);
