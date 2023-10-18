@@ -36,7 +36,8 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-
+extern float adcValue;
+extern int32_t count;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
