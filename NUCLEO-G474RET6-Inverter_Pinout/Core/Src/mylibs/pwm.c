@@ -17,11 +17,14 @@ void pwm_function_handler(void){
 	else if(strcmp(argv[1],"duty")==0){
 		int dutyCycle = atoi(argv[2]);
 		if(dutyCycle > 99){
-			htim1.Instance->CCR1 = PWM_100;
+			__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1, PWM_100-1);
+			__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2, htim1.Instance->ARR - htim1.Instance->CCR1);
 		}else if(dutyCycle < 1){
-			htim1.Instance->CCR1 = 0;
+			__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1, 0);
+			__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2, htim1.Instance->ARR - htim1.Instance->CCR1);
 		}else{
-			htim1.Instance->CCR1 = (  (  (float)dutyCycle  )/100  )*PWM_100;
+			__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1, (  (  (float)dutyCycle  )/100  )*PWM_100);
+			__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2, htim1.Instance->ARR - htim1.Instance->CCR1);
 		}
 	}
 }
