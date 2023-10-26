@@ -21,6 +21,7 @@ void pwm_function_handler(void){
 		}else if(dutyCycle < 0){
 			printf("valeur trop grande speed < 0\r\n");
 		}else{
+
 			__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1, (  (  (float)dutyCycle  )/100  )*PWM_100);
 			__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2, htim1.Instance->ARR - htim1.Instance->CCR1);
 		}
