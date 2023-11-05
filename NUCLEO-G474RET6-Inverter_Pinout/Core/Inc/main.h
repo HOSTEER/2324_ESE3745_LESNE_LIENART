@@ -37,7 +37,8 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
 extern float adcValue;
-extern int32_t count;
+extern float motor_speed;
+extern uint8_t begin;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
