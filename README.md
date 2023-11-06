@@ -10,3 +10,7 @@ Le timer utilisé en mode encodeur doit avoir le champ "Enodeur mode" à la vale
 
 TP3 :
 On utilise des structures pour stocker les valeurs précédentes et les constantes
+
+
+TP4:
+Nous n'avions pas de pseudo code pour la fonction de PID et puisque nous avons voulu écrire des structures afin de stocker toutes les variables, nous avons perdu beaucoup de temps et n'avons pas pu finir l'asservissement.
