@@ -37,30 +37,32 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define ENCODER_FREQ 100
+#define ENCODER_FREQ 100		//Fréquence d'echantillonage de l'encodeur.
+#define MIDDLE_INT32 32768		// Valeur centrale pour un entier 32 bits
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-#define MIDDLE_INT32 32768
+
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-float adcValue = 0;
-int32_t encoder_count = MIDDLE_INT32-1;
-float motor_speed = 0;
-h_asserv_t asserv_speed;
-h_asserv_t asserv_current;
-uint8_t current_flag=0, speed_flag=0;
-uint8_t begin = 0;
+float adcValue = 0;							// Valeur analogique convertie de l'ADC
+int32_t encoder_count = MIDDLE_INT32-1;		// Compteur de l'encodeur
+float motor_speed = 0;						// Vitesse du moteur
+h_asserv_t asserv_speed;					// Structure pour l'asservissement de vitesse
+h_asserv_t asserv_current;					// Structure pour l'asservissement de courant
+uint8_t current_flag=0, speed_flag=0, begin = 0;	//Flags permettants de déclencher certaines actions dans la boucle while du user code
+													//begin pour l'activation de l'asservissement en courant
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 
+// Fonction pour rediriger la sortie du printf vers l'UART2
 int _write(int file, char *ptr, int len) {
 	int DataIdx;
 
@@ -70,6 +72,7 @@ int _write(int file, char *ptr, int len) {
 	return len;
 }
 
+// Fonction de rappel appelée lorsqu'une conversion ADC est terminée
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
 {
 	if(hadc->Instance == ADC1){
@@ -143,7 +146,7 @@ int main(void)
 		if(current_flag > 0 && (begin == 1)){
 			current_flag = 0;
 
-			pid_asserv();
+			pid_asserv();	// Appel de la fonction d'asservissement
 		}
 		motor_speed = ((((float) encoder_count)*ENCODER_FREQ)/4096)*60;
 		//motor_speed = (float) encoder_count;
@@ -215,9 +218,13 @@ void SystemClock_Config(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   /* USER CODE BEGIN Callback 0 */
+	// Vérification si l'interruption est déclenchée par TIM2 (encodeur)
 	if(htim->Instance == TIM2){
+		// Mise à jour du compteur de l'encodeur
 		encoder_count = (int32_t) ((int64_t) htim3.Instance->CNT - (int64_t)MIDDLE_INT32);
+		// Réinitialisation du compteur du TIM3 pour le contrôle de l'encodeur
 		htim3.Instance->CNT = MIDDLE_INT32;
+		// Activation du flag de vitesse pour signaler les nouvelles données de vitesse
 		speed_flag = 1;
 	}
   /* USER CODE END Callback 0 */
