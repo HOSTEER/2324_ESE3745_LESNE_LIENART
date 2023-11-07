@@ -1,0 +1,32 @@
+!SESSION 2023-11-07 11:14:39.722 -----------------------------------------------
+eclipse.buildId=Version 1.13.1
+java.version=17.0.6
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=fr_FR
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -data C:\Users\les_victor\Documents\Vrais_docs\ENSEA\Cours 3A\2324_ESE3745_LESNE_LIENART
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2023-11-07 11:14:44.318
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2023-11-07 11:14:44.328
+!MESSAGE Log4j2 initialized with config file C:\Users\les_victor\Documents\Vrais_docs\ENSEA\Cours 3A\2324_ESE3745_LESNE_LIENART\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.externaltools 4 0 2023-11-07 11:14:46.734
+!MESSAGE HRESULT: -2147024894
+!STACK 0
+com.sun.jna.platform.win32.Win32Exception: Le fichier spécifié est introuvable.
+	at com.sun.jna.platform.win32.Advapi32Util.registryGetStringValue(Advapi32Util.java:741)
+	at com.sun.jna.platform.win32.Advapi32Util.registryGetStringValue(Advapi32Util.java:718)
+	at com.st.stm32cube.ide.mcu.externaltools.stlinkserver.win32.MCUWinExternalEnvResolver.getPath(MCUWinExternalEnvResolver.java:33)
+	at com.st.stm32cube.ide.mcu.externaltools.internal.registry.MCUExternalToolsTool.resolvePath(MCUExternalToolsTool.java:129)
+	at com.st.stm32cube.ide.mcu.externaltools.internal.registry.MCUExternalToolsTool.getLocation(MCUExternalToolsTool.java:267)
+	at com.st.stm32cube.ide.mcu.externaltools.internal.registry.MCUExternalToolsRegistry.getToolPath(MCUExternalToolsRegistry.java:235)
+	at com.st.stm32cube.ide.mcu.externaltools.internal.registry.MCUExternalToolsRegistry.getToolPath(MCUExternalToolsRegistry.java:223)
+	at com.st.stm32cube.ide.mcu.externaltools.internal.registry.MCUExternalToolsRegistry.getSTLinkServerLocation(MCUExternalToolsRegistry.java:255)
+	at com.st.stm32cube.ide.mcu.externaltools.MCUExternalToolsPlugin.getSTLinkServerLocation(MCUExternalToolsPlugin.java:142)
+	at com.st.stm32cube.ide.mcu.externaltools.ui.internal.startup.MCUExternalToolsStartup.doPrint(MCUExternalToolsStartup.java:110)
+	at com.st.stm32cube.ide.mcu.externaltools.ui.internal.startup.MCUExternalToolsStartup$1.run(MCUExternalToolsStartup.java:199)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2023-11-07 11:14:46.735
+!MESSAGE Started RMI Server, listening on port 41337
