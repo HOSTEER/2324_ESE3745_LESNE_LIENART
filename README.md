@@ -10,6 +10,8 @@ Dans un soucis de gain de temps pour l'implantation d'une fonctionnalité sans r
 
 ### Génération de PWM
 Pour la génération des PWM nous utilisons le **Timer 1** pour générer des PWM sur ses **channels 1 & 2** (avec leurs compléménetaires). Les broches de la carte sur lesquels sont routés ces **channels** mènent aux transisors contrôlant les ponts U et V.
+Afin de moins d'avoir un meilleur rendement de puissance du moteur, de réduire l'amplitude de courant et de réduire l'énergie consommée à l'arrêt, nous utilisons la commande compléméntaire décalée (*mode center-aligned*).
+Pour cela il faut aussi doubler la fréquence du timer car le timer compte maintenant en UP/DOWN ce qui doublerait la période de hachage.
 
 ### Dead time
 D'après la datasheet des transistors (IRF540N), dans leurs caractéristiques de commutation, Turn off-time vaut 145ns. Par précaution nous avons majoré ce temps pour arriver à un temps mort de *206ns*.
@@ -39,7 +41,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef hadc)
     }
 }
 ```
-La tension fournie par la sonde de courant est centrée sur 1,5V avec comme coefficient 50mV/A, nous avons donc converti la valeur de l'ADC en conséquence et stocké dans cette même variable ~~(on sait c'est pas très propre)~~.
+La tension fournie par la sonde de courant est centrée sur 1,5V avec comme coefficient 50mV/A, nous avons donc converti la valeur de l'ADC en conséquence et stocké dans cette même variable.
 
 Dans l'optique d'utiliser la mesure de pourant pour asservir celui-ci, nous avons activé l'option d'activation de l'ADC sur le rechargement du registre du **Timer 1**, ce qui nous permet aussi en théorie d'éviter les perturbations de courant dûes à la commutation des transistors.
 ![Paramètres de l'ADC permettant le déclenchement par le timer 1.](Images/ADC_param.png)
@@ -63,3 +65,7 @@ Avec le tachymètre inclus au moteur, on mesure une vitesse de 556 tr/min. Tandi
 On utilise des structures pour stocker les valeurs les coefficients des PID et leur consigne, tandis que les variables de calculs (mesurées et antérieurses) sont déclarées en statiques (nous utilisons une fonction pour chaque instance PID).
 
 Nous n'avions pas de pseudo code pour la fonction de PID et puisque nous avons voulu écrire des structures afin de stocker toutes les variables, nous avons donc perdu beaucoup de temps et n'avons pas pu finir l'asservissement.
+
+
+## Conclusion
+Dans cette série de TP nous avons appris à générer une commande compléméntaire décalée
