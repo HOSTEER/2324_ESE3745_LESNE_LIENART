@@ -10,7 +10,7 @@ Dans un soucis de gain de temps pour l'implantation d'une fonctionnalité sans r
 
 ### Génération de PWM
 Pour la génération des PWM nous utilisons le **Timer 1** pour générer des PWM sur ses **channels 1 & 2** (avec leurs compléménetaires). Les broches de la carte sur lesquels sont routés ces **channels** mènent aux transisors contrôlant les ponts U et V.
-Afin de moins d'avoir un meilleur rendement de puissance du moteur, de réduire l'amplitude de courant et de réduire l'énergie consommée à l'arrêt, nous utilisons la commande compléméntaire décalée (*mode center-aligned*).
+Afin d'avoir un meilleur rendement de puissance du moteur, de réduire l'amplitude de courant et de réduire l'énergie consommée à l'arrêt, nous utilisons la commande compléméntaire décalée (*mode center-aligned*).
 Pour cela il faut aussi doubler la fréquence du timer car le timer compte maintenant en UP/DOWN ce qui doublerait la période de hachage et fixer la valeur du CCR2 en compléméntaire du CCR1 tel que :
 ```
 CCR2 = ARR - CCR1
