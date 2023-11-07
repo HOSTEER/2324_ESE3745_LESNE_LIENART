@@ -69,7 +69,3 @@ Avec le tachymètre inclus au moteur, on mesure une vitesse de 556 tr/min. Tandi
 * On utilise des structures pour stocker les valeurs les coefficients des PID et leur consigne, tandis que les variables de calculs (mesurées et antérieurses) sont déclarées en statiques (nous utilisons une fonction pour chaque instance PID).
 
 * Nous n'avions pas de pseudo code pour la fonction de PID et puisque nous avons voulu écrire des structures afin de stocker toutes les variables, nous avons donc perdu beaucoup de temps et n'avons pas pu finir l'asservissement.
-
-
-## Conclusion
-Dans cette série de TP nous avons appris à générer une commande compléméntaire décalée
